@@ -17,7 +17,7 @@ class Database
     public static function getInstance()
     {
         if (!isset(self::$instance)) {
-            $host = "localhost";
+            $host = "127.0.0.1";
             $dbname = "db_baitalhikmah";
             $username = "root";
             $password = "";

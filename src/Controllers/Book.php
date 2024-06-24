@@ -1,9 +1,11 @@
 <?php
+
 namespace Controllers;
 
 use Models\Model_member;
 
-class Book{
+class Book
+{
     private $book;
     public function __construct()
     {
