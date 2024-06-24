@@ -2,33 +2,31 @@
 
 namespace Controllers;
 
-use Models\Model_member;
+use Models\Model_book;
+use Models\Model_perpus;
 
 class Book
 {
     private $book;
+    private $perpus;
 
     public function __construct()
     {
-        $this->book = new Model_member();
+        $this->book = new Model_book();
+        $this->perpus = new Model_perpus();
     }
 
-    public function index()
-    {
-        require_once 'src/Views/index.php';
-    }
 
-    public function dashboard()
+    public function pinjam()
     {
         require_once 'src/Views/dashboard.php';
-    }
-    
-    public function login()
-    {
-        require_once 'src/Views/login.php';
-    }
-    public function register()
-    {
-        require_once 'src/Views/register.php';
+        $idMember =  $_GET['idMember'];
+        $idBuku =  $_GET['idBuku'];
+        echo $idBuku;
+        echo $idMember;
+        echo "asdadsadsa\n\n\n\asdsad";
+        return $this->perpus->borrowBook($idMember, $idBuku);
+        // if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+        // }
     }
 }

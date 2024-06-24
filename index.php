@@ -3,27 +3,30 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Controllers\Book;
+use Controllers\Member;
 
-$controller = new Book();
+$memberController = new Member();
+$bookController = new Book();
 
 
 if (isset($_GET['act'])) {
-    echo "Hello";
-
     switch ($_GET['act']) {
         case 'dashboard':
-            $controller->dashboard();
+            $memberController->dashboard();
             break;
         case 'login':
-            $controller->login();
+            $memberController->login();
             break;
         case 'register':
-            $controller->register();
+            $memberController->register();
+            break;
+        case 'pinjam':
+            $bookController->pinjam();
             break;
         default:
-            $controller->index();
+            $memberController->index();
             break;
     }
 } else {
-    $controller->index();
+    $memberController->index();
 }
