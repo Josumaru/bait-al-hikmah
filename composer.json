@@ -1,0 +1,11 @@
+{
+    "name": "bah/bait-al-hikmah",
+    "description": "Perpustakaan Bait Al-Hikmah",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Bah\\BaitAlHikmah\\": "src/"
+        }
+    },
+    "require": {}
+}
