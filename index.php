@@ -1,13 +1,29 @@
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
+
 use Controllers\Book;
 
 $controller = new Book();
 
 
-//tentukan bagaimana halaman akan di-load
-if (!isset($_GET['act'])) {
+if (isset($_GET['act'])) {
+    echo "Hello";
+
+    switch ($_GET['act']) {
+        case 'dashboard':
+            $controller->dashboard();
+            break;
+        case 'login':
+            $controller->login();
+            break;
+        case 'register':
+            $controller->register();
+            break;
+        default:
+            $controller->index();
+            break;
+    }
+} else {
     $controller->index();
-    //pemanggilan method yang akan di-run
 }

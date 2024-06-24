@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    Index
+    Dashboard
 </body>
 </html>

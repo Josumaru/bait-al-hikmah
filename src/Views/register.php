@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    Index
+    Register
 </body>
 </html>
