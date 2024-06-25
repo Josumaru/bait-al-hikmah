@@ -22,12 +22,13 @@ class Model_member
         $rs = $this->databaseHandler->prepare("SELECT * FROM member WHERE email = ? AND password = ?");
         $rs->execute([$email, $password]);
         $user = $rs->fetchObject();
-        
         if ($user) {
-            // Simpan informasi pengguna dalam session
-            $_SESSION['id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = $user['role'];
+            $_SESSION['id'] = $user->idmember;
+            $_SESSION['username'] = $user->username;
+            $_SESSION['role'] = $user->role;
+            echo "<script language='JavaScript'>
+            window.location.href = '/';
+            </script>";
             return true;
         } else {
             return false;

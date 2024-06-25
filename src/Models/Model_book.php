@@ -37,6 +37,7 @@ class Model_book
             return true;
         } catch (\PDOException $e) {
             // Handle database error
+            echo $e;
             return false;
         }
     }
@@ -44,7 +45,7 @@ class Model_book
     public function viewBook()
     {
         try {
-            $rs = $this->databaseHandler->prepare("SELECT * FROM buku");
+            $rs = $this->databaseHandler->prepare("SELECT * FROM buku WHERE idbuku NOT IN(SELECT buku_idbuku FROM peminjaman)");
             $rs->execute();
             return $rs->fetchAll();
         } catch (\PDOException $e) {

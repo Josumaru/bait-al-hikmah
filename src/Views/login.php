@@ -8,9 +8,10 @@ if (isset($_POST['submit'])) {
         $password = $_POST['password'];
 
         if ($row['email'] != '') {
-            echo $row['email'];
             $_SESSION['status'] = $row['status'];
             $_SESSION['email'] = $row['email'];
+            header('Location: /');
+
         } else {
             echo "
             <script language script='JavaScript'>

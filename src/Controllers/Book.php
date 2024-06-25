@@ -19,14 +19,30 @@ class Book
 
     public function pinjam()
     {
-        require_once 'src/Views/dashboard.php';
-        $idMember =  $_GET['idMember'];
-        $idBuku =  $_GET['idBuku'];
-        echo $idBuku;
-        echo $idMember;
-        echo "asdadsadsa\n\n\n\asdsad";
-        return $this->perpus->borrowBook($idMember, $idBuku);
-        // if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-        // }
+        $idmember =  $_POST['idmember'];
+        $idbuku =  $_POST['idbuku'];
+        $this->perpus->borrowBook($idmember, $idbuku);
+        echo "<script language='JavaScript'>
+            window.location.href = '/';
+            </script>";
+    }
+
+    public function showBorrow()
+    {
+        require_once 'src/Views/profile.php';
+        $idmember =  $_POST['idmember'];
+        $this->perpus->returnBook($idmember);
+    }
+
+    public function kembalikan()
+    {
+        $idmember =  $_POST['idmember'];
+        $idbuku =  $_POST['idbuku'];
+        $this->perpus->deleteBorrow($idbuku);
+        $this->perpus->addPengembalian($idbuku, $idmember);
+        echo "<script language='JavaScript'>
+            window.location.href = '/?act=profile';
+            </script>";
+
     }
 }

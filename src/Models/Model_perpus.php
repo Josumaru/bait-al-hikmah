@@ -32,11 +32,48 @@ class Model_perpus
         // (Code remains the same for viewing books)
     }
 
+    public function showBorrow($userId) {
+        try {
+            $rs = $this->databaseHandler->prepare("SELECT * FROM buku WHERE idbuku IN (SELECT buku_idbuku FROM peminjaman WHERE member_idmember = ?)");
+            $rs->execute([$userId]);
+            return $rs->fetchAll();
+        } catch (\PDOException $e) {
+            // Handle database error
+            return false;
+        }
+    }
+
+    public function deleteBorrow($bookId) {
+        try{
+            $rs = $this->databaseHandler->prepare("DELETE FROM peminjaman WHERE buku_idbuku = ?");
+            $rs->execute([$bookId]);
+        }catch(\PDOException $e) {
+            // Handle database error
+            return false;
+        }
+    }
+
+public function addPengembalian($bookId, $userId)
+    {
+        try {
+            $currentTime = date('Y-m-d H:i:s'); // Get current date and time
+            $rs = $this->databaseHandler->prepare("INSERT INTO pengembalian (member_idmember, buku_idbuku, tanggalpengembalian) values (?, ?, ?)");
+            $rs->execute([$userId, $bookId, $currentTime]);
+            return true;
+        } catch (\PDOException $e) {
+            echo "$e";
+            // Handle database error
+            return false;
+        }
+    }
+
     public function borrowBook($bookId, $userId)
     {
         try {
             $currentTime = date('Y-m-d H:i:s'); // Get current date and time
             $rs = $this->databaseHandler->prepare("INSERT INTO peminjaman (member_idmember, buku_idbuku, waktumeminjam) VALUES (?, ?, ?)");
+            echo "$bookId";
+            echo "$userId";
             $rs->execute([$bookId, $userId, $currentTime]);
             return true;
         } catch (\PDOException $e) {
@@ -49,10 +86,7 @@ class Model_perpus
     {
         try {
             $currentTime = date('Y-m-d H:i:s'); // Get current date and time
-            $rs = $this->databaseHandler->prepare("
-                UPDATE peminjaman SET tgl_kembali = ?
-                WHERE idpeminjaman = ?
-            ");
+            $rs = $this->databaseHandler->prepare("INSERT INTO peminjaman ");
             $rs->execute([$currentTime, $borrowingId]);
             return true;
         } catch (\PDOException $e) {

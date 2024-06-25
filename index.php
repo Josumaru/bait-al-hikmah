@@ -23,6 +23,15 @@ if (isset($_GET['act'])) {
         case 'pinjam':
             $bookController->pinjam();
             break;
+        case 'profile':
+            $bookController->showBorrow();
+            break;
+        case 'return':
+            $bookController->kembalikan();
+            break;
+        case 'dashboard':
+            $bookController->kembalikan();
+            break;
         default:
             $memberController->index();
             break;
