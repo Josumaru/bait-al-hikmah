@@ -17,14 +17,27 @@ class Model_perpus
         }
     }
 
-    public function addBook($title, $author)
-    {
-        // (Code remains the same for adding books)
+    public function addBook($title, $author, $cover)
+    { {
+            try {
+                $rs = $this->databaseHandler->prepare("INSERT INTO buku(judul, penulis, cover) values (?, ?, ?)");
+                $rs->execute([$title, $author, $cover]);
+                return true;
+            } catch (\PDOException $e) {
+                echo "$e";
+                return false;
+            }
+        }
     }
 
     public function deleteBook($bookId)
     {
-        // (Code remains the same for deleting books)
+        try {
+            $rs = $this->databaseHandler->prepare("DELETE FROM buku WHERE idbuku = ?");
+            $rs->execute([$bookId]);
+        } catch (\PDOException $e) {
+            return false;
+        }
     }
 
     public function viewBook()
@@ -32,28 +45,28 @@ class Model_perpus
         // (Code remains the same for viewing books)
     }
 
-    public function showBorrow($userId) {
+    public function showBorrow($userId)
+    {
         try {
             $rs = $this->databaseHandler->prepare("SELECT * FROM buku WHERE idbuku IN (SELECT buku_idbuku FROM peminjaman WHERE member_idmember = ?)");
             $rs->execute([$userId]);
             return $rs->fetchAll();
         } catch (\PDOException $e) {
-            // Handle database error
             return false;
         }
     }
 
-    public function deleteBorrow($bookId) {
-        try{
+    public function deleteBorrow($bookId)
+    {
+        try {
             $rs = $this->databaseHandler->prepare("DELETE FROM peminjaman WHERE buku_idbuku = ?");
             $rs->execute([$bookId]);
-        }catch(\PDOException $e) {
-            // Handle database error
+        } catch (\PDOException $e) {
             return false;
         }
     }
 
-public function addPengembalian($bookId, $userId)
+    public function addPengembalian($bookId, $userId)
     {
         try {
             $currentTime = date('Y-m-d H:i:s'); // Get current date and time
@@ -62,7 +75,6 @@ public function addPengembalian($bookId, $userId)
             return true;
         } catch (\PDOException $e) {
             echo "$e";
-            // Handle database error
             return false;
         }
     }
@@ -77,7 +89,6 @@ public function addPengembalian($bookId, $userId)
             $rs->execute([$bookId, $userId, $currentTime]);
             return true;
         } catch (\PDOException $e) {
-            // Handle database error
             return false;
         }
     }
@@ -90,7 +101,6 @@ public function addPengembalian($bookId, $userId)
             $rs->execute([$currentTime, $borrowingId]);
             return true;
         } catch (\PDOException $e) {
-            // Handle database error
             return false;
         }
     }
@@ -106,7 +116,6 @@ public function addPengembalian($bookId, $userId)
             $rs->execute();
             return $rs->fetchAll();
         } catch (\PDOException $e) {
-            // Handle database error
             return null;
         }
     }

@@ -27,6 +27,35 @@ class Book
             </script>";
     }
 
+    public function deleteBook()
+    {
+        $idbuku =  $_POST['idbuku'];
+        $this->perpus->deleteBook($idbuku);
+        echo "<script language='JavaScript'>
+            window.location.href = '/?act=dashboard';
+            </script>";
+    }
+
+    public function getEdit()
+    {
+        $idbuku =  $_POST['idbuku'];
+        $this->perpus->deleteBook($idbuku);
+        echo "<script language='JavaScript'>
+            window.location.href = '/?act=dashboard';
+            </script>";
+    }
+
+    public function addBook()
+    {
+        $title =  $_POST['title'];
+        $author =  $_POST['author'];
+        $cover =  $_POST['cover'];
+        $this->perpus->addBook($title, $author, $cover);
+        echo "<script language='JavaScript'>
+            window.location.href = '/?act=dashboard';
+            </script>";
+    }
+
     public function showBorrow()
     {
         require_once 'src/Views/profile.php';
@@ -43,6 +72,5 @@ class Book
         echo "<script language='JavaScript'>
             window.location.href = '/?act=profile';
             </script>";
-
     }
 }

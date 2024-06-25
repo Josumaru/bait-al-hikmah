@@ -31,6 +31,14 @@ if (isset($_GET['act'])) {
             break;
         case 'dashboard':
             $bookController->kembalikan();
+        case 'add':
+            $bookController->addBook();
+            break;
+        case 'delete':
+            $bookController->deleteBook();
+            break;
+        case 'edit':
+            $bookController->deleteBook();
             break;
         default:
             $memberController->index();
